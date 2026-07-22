@@ -3396,249 +3396,276 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
-    <!-- SECTION: DATA DESA -->
-    <div id="data-desa" class="page">
-      <div class="card" style="padding: 40px 30px; text-align: left">
-        <!-- Header Kiri Rata -->
-        <h2
+ 
+<!-- SECTION: DATA DESA -->
+<div id="data-desa" class="page">
+  <div class="card" style="padding: 40px 30px; text-align: left">
+    <!-- Header Kiri Rata -->
+    <h2
+      style="
+        font-size: 26px;
+        color: var(--biru-gelap);
+        margin: 0 0 15px 0;
+        font-weight: 700;
+      "
+    >
+      Data Administrasi Desa
+    </h2>
+    <p
+      style="
+        color: #64748b;
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin: 0 0 30px 0;
+      "
+    >
+      Data kependudukan dan profil desa di bawah ini bersumber langsung dari
+      <strong>Catatan Administrasi Desa</strong>. Data ini dikelola secara
+      rutin oleh perangkat desa melalui mekanisme pencatatan administrasi
+      bulanan.
+    </p>
+
+    <!-- Box Pilih Jenis Data dengan Fitur Pencarian -->
+    <div
+      style="
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+      "
+    >
+      <label
+        style="
+          display: block;
+          font-size: 14px;
+          color: #475569;
+          margin-bottom: 10px;
+          font-weight: 600;
+        "
+      >
+        🔍 Cari & Pilih Jenis Data:
+      </label>
+      <select
+        id="pilihSheetDesa"
+        placeholder="Ketik indikator atau dusun yang ingin dicari..."
+        autocomplete="off"
+      >
+        <!-- Dusun I -->
+        <option value="Sheet1" selected>
+          Jumlah Keluarga di Dusun I Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet2">
+          Jumlah Penduduk di Dusun I Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet3">
+          Jumlah Penduduk Laki-Laki di Dusun I Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet4">
+          Jumlah Penduduk Perempuan di Dusun I Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        
+        <!-- Dusun II Jalan Baru -->
+        <option value="Sheet5">
+          Jumlah Keluarga di Dusun II Jalan Baru Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet6">
+          Jumlah Penduduk di Dusun II Jalan Baru Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet7">
+          Jumlah Penduduk Laki-Laki di Dusun II Jalan Baru Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet8">
+          Jumlah Penduduk Perempuan di Dusun II Jalan Baru Desa Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        
+        <!-- Dusun III Tambang Dua Kepoh -->
+        <option value="Sheet9">
+          Jumlah Keluarga di Dusun III Tambang Dua Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet10">
+          Jumlah Penduduk di Dusun III Tambang Dua Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet11">
+          Jumlah Penduduk Laki-Laki di Dusun III Tambang Dua Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+        <option value="Sheet12">
+          Jumlah Penduduk Perempuan di Dusun III Tambang Dua Kepoh Menurut RT Bulan Juni Tahun 2026
+        </option>
+      </select>
+    </div>
+
+    <!-- BUNGKUSAN GRAFIK & TABEL -->
+    <div id="grafik-wrapper">
+      <!-- Judul Grafik -->
+      <h3
+        id="chart-title"
+        style="
+          text-align: center;
+          color: var(--biru-gelap);
+          margin-bottom: 25px;
+          font-size: 18px;
+          font-weight: 700;
+        "
+      >
+        Memuat Data...
+      </h3>
+
+      <!-- Kotak Grafik -->
+      <div
+        style="
+          position: relative;
+          width: 100%;
+          height: 400px;
+          margin: 0 auto;
+          background: #ffffff;
+          padding: 20px;
+          border-radius: 8px;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        "
+      >
+        <canvas id="trendChart"></canvas>
+      </div>
+
+      <!-- Sumber & Catatan -->
+      <div
+        style="
+          margin: 15px 0 40px 0;
+          font-size: 12.5px;
+          color: #64748b;
+          text-align: left;
+          line-height: 1.5;
+        "
+      >
+        <p style="margin: 0">
+          <strong style="color: #475569">Sumber:</strong>
+          <span id="chart-source">Catatan Administrasi Desa Kepoh</span>
+        </p>
+        <p style="margin: 4px 0 0 0; font-style: italic">
+          *Catatan: <span id="chart-note">Data bersumber dari rekapitulasi RT bulan Juni 2026</span>
+        </p>
+      </div>
+
+      <!-- TABEL DATA DINAMIS -->
+      <div style="width: 100%; margin: 0 auto">
+        <h3
+          id="table-title"
           style="
-            font-size: 26px;
+            text-align: center;
             color: var(--biru-gelap);
-            margin: 0 0 15px 0;
+            margin-bottom: 20px;
+            font-size: 18px;
             font-weight: 700;
           "
-        >
-          Data Administrasi Desa
-        </h2>
-        <p
-          style="
-            color: #64748b;
-            font-size: 14.5px;
-            line-height: 1.6;
-            margin: 0 0 30px 0;
-          "
-        >
-          Data kependudukan dan profil desa di bawah ini bersumber langsung dari
-          <strong>Catatan Administrasi Desa</strong>. Data ini dikelola secara
-          rutin oleh perangkat desa melalui mekanisme pencatatan administrasi
-          bulanan.
-        </p>
+        ></h3>
 
-        <!-- Box Pilih Jenis Data dengan Fitur Pencarian -->
         <div
           style="
-            background-color: #f8fafc;
+            overflow-x: auto;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 40px;
+            border-radius: 6px;
+            margin-bottom: 15px;
           "
         >
-          <label
+          <table
             style="
-              display: block;
-              font-size: 14px;
-              color: #475569;
-              margin-bottom: 10px;
-              font-weight: 600;
-            "
-          >
-            🔍 Cari & Pilih Jenis Data:
-          </label>
-          <!-- Elemen onchange dihapus dari HTML karena sekarang ditangani langsung oleh Tom Select di Javascript -->
-          <select
-            id="pilihSheetDesa"
-            placeholder="Ketik indikator yang ingin dicari..."
-            autocomplete="off"
-          >
-            <option value="Sheet1" selected>
-              Perkembangan Jumlah Keluarga di Desa Kepoh Tahun 2026
-              (Maret-Juni)
-            </option>
-            <option value="Sheet2">
-              Perkembangan Jumlah Penduduk di Desa Kepoh Tahun 2026
-              (Maret-Juni)
-            </option>
-            <option value="Sheet3">
-              Perkembangan Jumlah Penduduk Laki-Laki di Desa Kepoh Tahun 2026
-              (Maret-Juni)
-            </option>
-            <option value="Sheet4">
-              Perkembangan Jumlah Penduduk Perempuan di Desa Kepoh Tahun 2026
-              (Maret-Juni)
-            </option>
-            <!-- Nanti kalau ada Sheet5, Sheet6 dst, tinggal tambah di sini -->
-          </select>
-        </div>
-
-        <!-- BUNGKUSAN GRAFIK & TABEL -->
-        <div id="grafik-wrapper">
-          <!-- Judul Grafik -->
-          <h3
-            id="chart-title"
-            style="
-              text-align: center;
-              color: var(--biru-gelap);
-              margin-bottom: 25px;
-              font-size: 18px;
-              font-weight: 700;
-            "
-          >
-            Memuat Data...
-          </h3>
-
-          <!-- Kotak Grafik -->
-          <div
-            style="
-              position: relative;
               width: 100%;
-              height: 400px;
-              margin: 0 auto;
-              background: #ffffff;
-              padding: 20px;
-              border-radius: 8px;
-              border: 1px solid #e2e8f0;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+              border-collapse: collapse;
+              text-align: center;
+              font-size: 14px;
             "
           >
-            <canvas id="trendChart"></canvas>
-          </div>
-
-          <!-- Sumber & Catatan (Versi Atas / Bawah Grafik) -->
-          <div
-            style="
-              margin: 15px 0 40px 0;
-              font-size: 12.5px;
-              color: #64748b;
-              text-align: left;
-              line-height: 1.5;
-            "
-          >
-            <p style="margin: 0">
-              <strong style="color: #475569">Sumber:</strong>
-              <span id="chart-source">-</span>
-            </p>
-            <p style="margin: 4px 0 0 0; font-style: italic">
-              *Catatan: <span id="chart-note">-</span>
-            </p>
-          </div>
-
-          <!-- TABEL DATA DINAMIS -->
-          <div style="width: 100%; margin: 0 auto">
-            <h3
-              id="table-title"
-              style="
-                text-align: center;
-                color: var(--biru-gelap);
-                margin-bottom: 20px;
-                font-size: 18px;
-                font-weight: 700;
-              "
-            ></h3>
-
-            <div
-              style="
-                overflow-x: auto;
-                border: 1px solid #e2e8f0;
-                border-radius: 6px;
-                margin-bottom: 15px;
-              "
-            >
-              <table
+            <thead>
+              <tr
                 style="
-                  width: 100%;
-                  border-collapse: collapse;
-                  text-align: center;
-                  font-size: 14px;
+                  background-color: #e0f2fe;
+                  color: var(--biru-gelap);
+                  font-weight: 600;
                 "
               >
-                <thead>
-                  <tr
-                    style="
-                      background-color: #e0f2fe;
-                      color: var(--biru-gelap);
-                      font-weight: 600;
-                    "
-                  >
-                    <th
-                      id="th-label"
-                      style="
-                        padding: 12px;
-                        border-right: 1px solid #e2e8f0;
-                        border-bottom: 1px solid #e2e8f0;
-                        width: 40%;
-                      "
-                    >
-                      Bulan
-                    </th>
-                    <th
-                      id="th-value"
-                      style="
-                        padding: 12px;
-                        border-bottom: 1px solid #e2e8f0;
-                        width: 60%;
-                      "
-                    >
-                      Jumlah
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="table-body">
-                  <!-- Baris data di-generate via JS -->
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Sumber, Catatan & Tombol Unduh (Bagian Bawah Tabel) -->
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-end;
-                font-size: 12.5px;
-                color: #64748b;
-                flex-wrap: wrap;
-                gap: 15px;
-              "
-            >
-              <div style="text-align: left; line-height: 1.5">
-                <p style="margin: 0">
-                  <strong style="color: #475569">Sumber:</strong>
-                  <span id="table-source">-</span>
-                </p>
-                <p style="margin: 4px 0 0 0; font-style: italic">
-                  *Catatan: <span id="table-note">-</span>
-                </p>
-              </div>
-              <div style="text-align: right">
-                <p style="margin: 0 0 5px 0; font-size: 11px; color: #94a3b8">
-                  (klik kanan dan buka di tab baru untuk unduh)
-                </p>
-                <a
-                  id="btn-download"
-                  href="#"
-                  target="_blank"
+                <!-- Kolom pertama diubah jadi RT -->
+                <th
+                  id="th-label"
                   style="
-                    background: #3b82f6;
-                    color: white;
-                    padding: 8px 16px;
-                    border-radius: 6px;
-                    text-decoration: none;
-                    font-weight: 600;
-                    font-size: 13px;
-                    display: inline-block;
-                    transition: 0.2s;
+                    padding: 12px;
+                    border-right: 1px solid #e2e8f0;
+                    border-bottom: 1px solid #e2e8f0;
+                    width: 40%;
                   "
                 >
-                  Unduh Data Administrasi
-                </a>
-              </div>
-            </div>
+                  RT
+                </th>
+                <th
+                  id="th-value"
+                  style="
+                    padding: 12px;
+                    border-bottom: 1px solid #e2e8f0;
+                    width: 60%;
+                  "
+                >
+                  Jumlah
+                </th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Baris data di-generate otomatis via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Sumber, Catatan & Tombol Unduh (Bagian Bawah Tabel) -->
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 12.5px;
+            color: #64748b;
+            flex-wrap: wrap;
+            gap: 15px;
+          "
+        >
+          <div style="text-align: left; line-height: 1.5">
+            <p style="margin: 0">
+              <strong style="color: #475569">Sumber:</strong>
+              <span id="table-source">Catatan Administrasi Desa Kepoh</span>
+            </p>
+            <p style="margin: 4px 0 0 0; font-style: italic">
+              *Catatan: <span id="table-note">Data bersumber dari rekapitulasi RT bulan Juni 2026</span>
+            </p>
+          </div>
+          <div style="text-align: right">
+            <p style="margin: 0 0 5px 0; font-size: 11px; color: #94a3b8">
+              (klik kanan dan buka di tab baru untuk unduh)
+            </p>
+            <!-- Tombol unduh dengan ID khusus agar linknya dinamis per sheet -->
+            <a
+              id="btn-download-desa"
+              href="#"
+              target="_blank"
+              style="
+                background: #3b82f6;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 13px;
+                display: inline-block;
+                transition: 0.2s;
+              "
+            >
+              Unduh Data Ini
+            </a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
+    
     <!-- SECTION: METADATA -->
     <div id="metadata" class="page">
       <div class="card hero-card" style="margin-bottom: 30px">
@@ -4476,183 +4503,172 @@
       }
     </script>
 
-    <!-- Script JavaScript Terintegrasi -->
-    <script>
-      let myTrendChart = null;
 
-      // 1. Inisialisasi Fitur Pencarian Dropdown (Tom Select)
-      new TomSelect("#pilihSheetDesa", {
-        create: false,
-        sortField: {
-          field: "text",
-          direction: "asc",
-        },
-        onChange: function (value) {
-          updateDashboardDesa(); // Otomatis perbarui data saat dropdown dipilih/dicari
-        },
-      });
+<script>
+let myTrendChart = null;
 
-      // 2. Fungsi Utama Menarik Data Google Sheets
-      function updateDashboardDesa() {
-        const selectObj = document.getElementById("pilihSheetDesa");
-        const selectedValue = selectObj.value;
+  // 1. Inisialisasi Fitur Pencarian Dropdown (Tom Select)
+  new TomSelect("#pilihSheetDesa", {
+    create: false,
+    sortField: {
+      field: "text",
+      direction: "asc",
+    },
+    onChange: function (value) {
+      updateDashboardDesa();
+    },
+  });
 
-        if (!selectedValue) return;
+  // 2. Fungsi Utama Menarik Data Google Sheets (Versi Stabil ala Paksian)
+  async function updateDashboardDesa() {
+    const selectObj = document.getElementById("pilihSheetDesa");
+    if (!selectObj) return;
 
-        const sheetId = "1Zq6DJ05Jk5CCsWRIsb8RSxXUbEFYBpFnKbSolCy4WeA";
-        const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${selectedValue}`;
+    const selectedValue = selectObj.value;
+    if (!selectedValue) return;
 
-        fetch(csvUrl)
-          .then((response) => response.text())
-          .then((csvText) => {
-            const {
-              title,
-              source,
-              note,
-              headerLabel,
-              headerValue,
-              labels,
-              data,
-            } = parseCSV(csvText);
+    const sheetId = "15cKJm6PQUPyAKVviFvD1Zhg4OTj9YohipY2HuPXemYY";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${selectedValue}`;
 
-            // Suntik teks ke Grafik
-            document.getElementById("chart-title").innerText = title;
-            document.getElementById("chart-source").innerText = source;
-            document.getElementById("chart-note").innerText = note;
+    // Mapping GID Tombol Unduh
+    const gidMapping = {
+      "Sheet1": "0",          
+      "Sheet2": "119854407",  
+      "Sheet3": "1298412850", 
+      "Sheet4": "1369325983", 
+      "Sheet5": "1738720849", 
+      "Sheet6": "252277490",  
+      "Sheet7": "1537873138", 
+      "Sheet8": "2059378128", 
+      "Sheet9": "1809224855", 
+      "Sheet10": "848967980", 
+      "Sheet11": "281698284", 
+      "Sheet12": "281987556"  
+    };
 
-            // Suntik teks ke Tabel
-            document.getElementById("table-title").innerText = "Tabel " + title;
-            document.getElementById("th-label").innerText = headerLabel;
-            document.getElementById("th-value").innerText = headerValue;
-            document.getElementById("table-source").innerText = source;
-            document.getElementById("table-note").innerText = note;
+    const targetGid = gidMapping[selectedValue] || "0";
+    document.getElementById("btn-download-desa").href = 
+      `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=${targetGid}`;
 
-            // Set link tombol unduh
-            document.getElementById("btn-download").href =
-              `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=0`;
+    try {
+      const response = await fetch(url);
+      const text = await response.text();
+      const json = JSON.parse(text.substring(47).slice(0, -2));
+      const rows = json.table.rows;
 
-            // Render Grafik & Tabel
-            renderChart(labels, data, title, "#0ea5e9");
-            renderTable(labels, data);
-          })
-          .catch((error) => {
-            console.error("Gagal menarik data:", error);
-            document.getElementById("chart-title").innerText =
-              "Gagal memuat data. Periksa koneksi atau ID Sheet.";
-          });
+      // Ambil metadata judul dari baris atas spreadsheet (jika ada)
+      let titleText = "Data Administrasi Desa";
+      if (rows[0] && rows[0].c && rows[0].c[1] && rows[0].c[1].v) {
+        titleText = rows[0].c[1].v;
+      } else {
+        // Ambil dari teks option yang sedang dipilih jika baris kosong
+        titleText = selectObj.options[selectObj.selectedIndex].text;
       }
 
-      // 3. Fungsi Parsing CSV
-      function parseCSV(csvText) {
-        const rows = csvText.trim().split("\n");
-        const labels = [];
-        const data = [];
-        let title = "",
-          source = "",
-          note = "";
-        let headerLabel = "Bulan",
-          headerValue = "Jumlah";
+      // Suntik teks ke Grafik & Tabel
+      document.getElementById("chart-title").innerText = titleText;
+      document.getElementById("table-title").innerText = "Tabel " + titleText;
+      document.getElementById("th-label").innerText = "RT";
+      document.getElementById("th-value").innerText = "Jumlah";
+      document.getElementById("chart-source").innerText = "Catatan Administrasi Desa Kepoh";
+      document.getElementById("chart-note").innerText = "Data bersumber dari rekapitulasi RT bulan Juni 2026";
+      document.getElementById("table-source").innerText = "Catatan Administrasi Desa Kepoh";
+      document.getElementById("table-note").innerText = "Data bersumber dari rekapitulasi RT bulan Juni 2026";
 
-        if (rows.length > 3) {
-          title = rows[0].split(",")[1]
-            ? rows[0].split(",")[1].replace(/"/g, "")
-            : "";
-          source = rows[1].split(",")[1]
-            ? rows[1].split(",")[1].replace(/"/g, "")
-            : "";
-          note = rows[2].split(",")[1]
-            ? rows[2].split(",")[1].replace(/"/g, "")
-            : "";
+      let labels = [];
+      let dataValues = [];
+      let totalKeseluruhan = 0;
+      let bodyHtml = "";
 
-          headerLabel = rows[3].split(",")[0]
-            ? rows[3].split(",")[0].replace(/"/g, "")
-            : "Bulan";
-          headerValue = rows[3].split(",")[1]
-            ? rows[3].split(",")[1].replace(/"/g, "")
-            : "Jumlah";
-        }
+      // Looping data mulai dari baris ke-5 (indeks 4)
+      for (let i = 4; i < rows.length; i++) {
+        if (!rows[i] || !rows[i].c || !rows[i].c[0] || !rows[i].c[0].v) continue;
 
-        for (let i = 4; i < rows.length; i++) {
-          const row = rows[i].replace(/"/g, "");
-          const cols = row.split(",");
+        let labelRt = rows[i].c[0].v;
+        let nilaiAngka = (rows[i].c[1] && rows[i].c[1].v !== null) ? parseFloat(rows[i].c[1].v) : 0;
 
-          if (cols.length >= 2 && cols[0].trim() !== "") {
-            labels.push(cols[0]);
-            data.push(Number(cols[1]));
-          }
-        }
-        return { title, source, note, headerLabel, headerValue, labels, data };
+        bodyHtml += "<tr>";
+        bodyHtml += `<td style="padding: 10px; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0;">${labelRt}</td>`;
+        bodyHtml += `<td style="padding: 10px; border-bottom: 1px solid #e2e8f0;">${nilaiAngka.toLocaleString()}</td>`;
+        bodyHtml += "</tr>";
+
+        labels.push(labelRt);
+        dataValues.push(nilaiAngka);
+        totalKeseluruhan += nilaiAngka;
       }
 
-      // 4. Fungsi Render Grafik Chart.js
-      function renderChart(chartLabels, chartData, chartLabelText, chartColor) {
-        const ctx = document.getElementById("trendChart").getContext("2d");
+      // Baris TOTAL di bawah tabel
+      bodyHtml += `<tr style="font-weight: bold; background-color: #d9e9f6; color: #1a4a7a;">`;
+      bodyHtml += `<td style="padding: 10px; border-right: 1px solid #cbd5e1;">TOTAL</td>`;
+      bodyHtml += `<td style="padding: 10px;">${totalKeseluruhan.toLocaleString()}</td>`;
+      bodyHtml += `</tr>`;
 
-        if (myTrendChart != null) {
-          myTrendChart.destroy();
-        }
+      document.getElementById("table-body").innerHTML = bodyHtml;
 
-        myTrendChart = new Chart(ctx, {
-          type: "line",
-          data: {
-            labels: chartLabels,
-            datasets: [
-              {
-                label: chartLabelText,
-                data: chartData,
-                borderColor: chartColor,
-                backgroundColor: chartColor + "33",
-                borderWidth: 3,
-                pointBackgroundColor: "#ffffff",
-                pointBorderColor: chartColor,
-                pointBorderWidth: 2,
-                pointRadius: 5,
-                fill: true,
-                tension: 0.4,
-              },
-            ],
+      // Render Bar Chart Warna-warni
+      renderChart(labels, dataValues, titleText);
+
+    } catch (error) {
+      console.error("Gagal menarik data:", error);
+      document.getElementById("chart-title").innerText =
+        "Gagal memuat data. Periksa koneksi atau pastikan Sheet disetel Publik.";
+    }
+  }
+
+  // 3. Fungsi Render Grafik Chart.js
+  function renderChart(chartLabels, chartData, chartLabelText) {
+    const ctx = document.getElementById("trendChart").getContext("2d");
+
+    if (myTrendChart != null) {
+      myTrendChart.destroy();
+    }
+
+    const warnaPilihan = [
+      "#3b82f6", "#ef4444", "#10b981", "#f59e0b", "#8b5cf6", 
+      "#ec4899", "#14b8a6", "#f97316", "#6366f1", "#84cc16",
+      "#06b6d4", "#d946ef", "#eab308", "#22c55e", "#a855f7"
+    ];
+    
+    let backgroundColors = chartLabels.map((_, index) => {
+      return warnaPilihan[index % warnaPilihan.length];
+    });
+
+    myTrendChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: chartLabels,
+        datasets: [
+          {
+            label: chartLabelText,
+            data: chartData,
+            backgroundColor: backgroundColors,
+            borderWidth: 1,
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
-            },
-            scales: {
-              y: { beginAtZero: false },
-            },
-          },
-        });
-      }
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
+        scales: {
+          y: { beginAtZero: true, grid: { drawBorder: false } },
+          x: { grid: { display: false } },
+        },
+      },
+    });
+  }
 
-      // 5. Fungsi Render Tabel
-      function renderTable(labels, data) {
-        const tbody = document.getElementById("table-body");
-        tbody.innerHTML = "";
+  // Trigger Muat Data Pertama Kali
+  window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      updateDashboardDesa();
+    }, 100);
+  });
+</script>
 
-        for (let i = 0; i < labels.length; i++) {
-          const tr = document.createElement("tr");
-          tr.style.borderBottom = "1px solid #f1f5f9";
 
-          const td1 = document.createElement("td");
-          td1.style.padding = "10px 12px";
-          td1.innerText = labels[i];
-
-          const td2 = document.createElement("td");
-          td2.style.padding = "10px 12px";
-          td2.innerText = data[i];
-
-          tr.appendChild(td1);
-          tr.appendChild(td2);
-          tbody.appendChild(tr);
-        }
-      }
-
-      // 6. Trigger Muat Data Pertama Kali
-      setTimeout(() => {
-        updateDashboardDesa();
-      }, 100);
-    </script>
 
     <!-- Script JavaScript untuk Peta Dinamis -->
     <script>
