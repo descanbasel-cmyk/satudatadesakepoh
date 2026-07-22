@@ -4546,9 +4546,9 @@ let myTrendChart = null;
       "Sheet12": "281987556"  
     };
 
-    const targetGid = gidMapping[selectedValue] || "0";
-    document.getElementById("btn-download-desa").href = 
-      `https://docs.google.com/spreadsheets/d/${sheetId}/edit#gid=${targetGid}`;
+    // Menggunakan link ekspor CSV khusus sheet yang sedang dipilih, persis seperti menu PAKSIAN
+    const specificCsvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${selectedValue}`;
+    document.getElementById("btn-download-desa").href = specificCsvUrl;
 
     try {
       const response = await fetch(url);
