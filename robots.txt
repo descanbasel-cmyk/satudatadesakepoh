@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nama-username.github.io/nama-repo/sitemap.xml
